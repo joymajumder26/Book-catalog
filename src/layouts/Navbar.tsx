@@ -10,7 +10,7 @@ import {
   DropdownMenuContent,
 } from '../components/ui/dropdown-menu';
 import { HiOutlineSearch } from 'react-icons/hi';
-import Cart from '../components/Cart';
+
 import logo from '../assets/images/book-logo.png';
 import Signup from '../pages/Signup';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
@@ -47,7 +47,7 @@ export default function Navbar() {
               </li>
               <li>
                 <Button variant="link" asChild>
-                  <Link to="/allbooks">All Books</Link>
+                  <Link to="/books">All Books</Link>
                 </Button>
               </li>
               <li>

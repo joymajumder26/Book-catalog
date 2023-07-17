@@ -4,34 +4,35 @@ import hero from '@/assets/images/hero.png';
 import { Link } from 'react-router-dom';
 import Footer from '@/layouts/Footer';
 import { useEffect, useState } from 'react';
-import { IProduct } from '@/types/globalTypes';
+
 import { useToast } from '@/components/ui/use-toast';
-import ProductCard from '@/components/ProductCard';
+import ProductCard from '@/components/BookCard';
+import { IBook } from '@/types/globalTypes';
+import { useGetBooksQuery } from '@/redux/feature/books/bookApi';
+import BookCard from '@/components/BookCard';
 
 export default function Home() {
-  const [data, setData] = useState<IProduct[]>([]);
-  useEffect(() => {
-    fetch('./data.json')
-      .then((res) => res.json())
-      .then((data) => setData(data));
-  }, []);
+  const {data,isLoading} =useGetBooksQuery(undefined);
+  console.log(isLoading);
 
   const { toast } = useToast();
 
 
 
-  //! **
+  
 
-  const handleSlider = (value: number[]) => {
-    console.log(value);
-  };
+  
+
+ 
+   
+  
 
   return (
     <>
       <div className="grid grid-cols-12 max-w-7xl mx-auto relative  ">
         <div className="col-span-12 grid grid-cols-3 gap-10 pb-20">
-          {data.map((product) => (
-            <ProductCard product={product} />
+          {data?.data.map((book: IBook) => (
+            <BookCard book={book} />
           ))}
         </div>
       </div>

@@ -5,7 +5,8 @@ import { Label } from '@/components/ui/label';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Switch } from '@/components/ui/switch';
 import { Textarea } from '@/components/ui/textarea';
-import { IProduct } from '@/types/globalTypes';
+import { IBook } from '@/types/globalTypes';
+
 
 import { useState } from 'react';
 
@@ -14,7 +15,7 @@ export default function Checkout() {
 
   //! Dummy Data
 
-  const products: IProduct[] = [];
+  const products: IBook[] = [];
 
   //! **
 
@@ -109,11 +110,11 @@ export default function Checkout() {
                   />
                   <div>
                     <h1 className="text-lg mb-2">{product.name}</h1>
-                    <p>Price: {product.price}</p>
+                    {/* <p>Price: {product.price}</p> */}
                   </div>
                 </div>
                 <div>
-                  <h1 className="text-4xl mr-5">{product.quantity}</h1>
+                  {/* <h1 className="text-4xl mr-5">{product.quantity}</h1> */}
                 </div>
               </div>
             ))}

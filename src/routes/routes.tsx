@@ -3,10 +3,13 @@ import App from '@/App';
 import Login from '@/pages/Login';
 import NotFound from '@/pages/NotFound';
 import Home from '@/pages/Home';
-import Products from '@/pages/Products';
+// import Products from '@/pages/Books';
 import Checkout from '@/pages/Checkout';
 import Signup from '@/pages/Signup';
-import ProductDetails from '@/pages/ProductDetails';
+import ProductDetails from '@/pages/BookDetails';
+
+import BookDetails from '@/pages/BookDetails';
+import Books from '@/pages/Books';
 
 const routes = createBrowserRouter([
   {
@@ -18,12 +21,12 @@ const routes = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: '/allbooks',
-        element: <Products />,
+        path: '/books',
+        element: <Books />,
       },
       {
-        path: '/allbooks/:id',
-        element: <ProductDetails />,
+        path: '/book-details/:id',
+        element: <BookDetails />,
       },
       {
         path: '/addnewbook',
