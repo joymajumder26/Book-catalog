@@ -1,10 +1,10 @@
 import { Button } from '@/components/ui/button';
-import { DatePickerWithPresets } from '@/components/ui/datePickerWithPreset';
+
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
-import { Switch } from '@/components/ui/switch';
+
 import { Textarea } from '@/components/ui/textarea';
+import { toast } from '@/components/ui/use-toast';
 import {
   useGetBooksQuery,
   usePostAddBookMutation,
@@ -16,7 +16,7 @@ import { useNavigate } from 'react-router-dom';
 
 export default function Checkout() {
   const [inputValue, setInputValue] = useState<{
-    id: number;
+   
     name: string;
     image: string;
     author: string;
@@ -24,7 +24,7 @@ export default function Checkout() {
     genre: string;
     publicationDate: string;
   }>({
-    id: 0,
+    
     name: '',
     image: '',
     author: '',
@@ -38,7 +38,7 @@ export default function Checkout() {
   });
   const [postAddBook, { isLoading, isError, isSuccess }] =
     usePostAddBookMutation();
-    const navigate = useNavigate();
+  const navigate = useNavigate();
   console.log(isLoading);
   console.log(isError);
   console.log(isSuccess);
@@ -53,9 +53,10 @@ export default function Checkout() {
     postAddBook(options);
     setInputValue('');
 
-   
+    toast({
+      description: 'Book Added',
+    });
 
-    
     // console.log(postAddBook);
   };
 
@@ -77,13 +78,11 @@ export default function Checkout() {
 
   //! **
 
-  useEffect(()=>{
-    if(isSuccess){
+  useEffect(() => {
+    if (isSuccess) {
       navigate('/');
     }
-
-  },[isSuccess])
-
+  }, [isSuccess]);
 
   return (
     <div className="flex justify-center items-center h-[calc(100vh-80px)] gap-10 text-primary">

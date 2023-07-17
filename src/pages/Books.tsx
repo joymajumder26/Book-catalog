@@ -9,23 +9,7 @@ import { IBook } from '@/types/globalTypes';
 
 export default function Books() {
   const {data,isLoading} =useGetBooksQuery(undefined);
-  console.log("--------------------------------------------------------------",data);
-  // console.log(isLoading);
-
-  const { toast } = useToast();
-
   
-
-  //! Dummy Data
-
-
-
-  //! **
-
-  const handleSlider = (value: number[]) => {
-    console.log(value);
-  };
-
 
 
 

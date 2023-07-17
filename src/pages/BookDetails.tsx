@@ -26,9 +26,11 @@ export default function BookDetails() {
         </div>
         <div className="w-[50%] space-y-3">
           <h1 className="text-3xl font-semibold">{book?.name}</h1>
-          <p className="text-xl">Rating: {book?.author}</p>
+          <p className="text-xl">Author: {book?.author}</p>
+          <p className="text-xl">Genre: {book?.genre}</p>
+          <p className="text-xl">Publication Date: {book?.publicationDate}</p>
          
-          <Button>Add to cart</Button>
+          <Button>Remove Book</Button>
         </div>
       </div>
       <ProductReview id={id!} />
