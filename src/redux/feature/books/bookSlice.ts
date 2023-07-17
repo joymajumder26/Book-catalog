@@ -12,18 +12,13 @@ const initialState: IBookDetails = {
     
   };
 const bookSlice = createSlice({
-    name: 'book',
+    name: 'posts',
     initialState,
     reducers: {
-      
-      removeFromBooks: (state, action: PayloadAction<IBook>) => {
-        state.books = state.books.filter(
-          (book) => book._id !== action.payload._id
-        );
-  
-       
+      postAdded(state, action) {
+        state.push(action.payload)
       },
-    },
+    }
   });
   
   export const { removeFromBooks } = bookSlice.actions;

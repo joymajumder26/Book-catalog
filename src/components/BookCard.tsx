@@ -3,7 +3,7 @@ import { toast } from './ui/use-toast';
 import { Button } from './ui/button';
 import { Link } from 'react-router-dom';
 import { useAppDispatch } from '@/redux/hooks';
-import { removeFromBooks, removeFromCart } from '@/redux/feature/books/bookSlice';
+import { removeFromBooks} from '@/redux/feature/books/bookSlice';
 
 interface IProps {
   book: IBook;

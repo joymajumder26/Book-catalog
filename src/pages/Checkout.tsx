@@ -5,136 +5,144 @@ import { Label } from '@/components/ui/label';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Switch } from '@/components/ui/switch';
 import { Textarea } from '@/components/ui/textarea';
+import {
+  useGetBooksQuery,
+  usePostAddBookMutation,
+} from '@/redux/feature/books/bookApi';
 import { IBook } from '@/types/globalTypes';
 
-
-import { useState } from 'react';
+import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export default function Checkout() {
-  const [scheduled, setScheduled] = useState<boolean>(false);
+  const [inputValue, setInputValue] = useState<{
+    id: number;
+    name: string;
+    image: string;
+    author: string;
 
+    genre: string;
+    publicationDate: string;
+  }>({
+    id: 0,
+    name: '',
+    image: '',
+    author: '',
+    genre: '',
+    publicationDate: '',
+  });
+
+  const { data } = useGetBooksQuery({
+    refetchOnMountOrArgChange: true,
+    pollingInterval: 30000,
+  });
+  const [postAddBook, { isLoading, isError, isSuccess }] =
+    usePostAddBookMutation();
+    const navigate = useNavigate();
+  console.log(isLoading);
+  console.log(isError);
+  console.log(isSuccess);
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    console.log(event);
+    console.log(inputValue);
+
+    const options = {
+      data: inputValue,
+    };
+    postAddBook(options);
+    setInputValue('');
+
+   
+
+    
+    // console.log(postAddBook);
+  };
+
+  const handleChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
+    console.log(event.target.value);
+    const { id, value } = event.target;
+
+    setInputValue((prevData) => ({
+      ...prevData,
+      [id]: value,
+    }));
+
+    // setInputValue(event.target.value);
+  };
+  // console.log(postAddBook);
   //! Dummy Data
 
   const products: IBook[] = [];
 
   //! **
 
+  useEffect(()=>{
+    if(isSuccess){
+      navigate('/');
+    }
+
+  },[isSuccess])
+
+
   return (
     <div className="flex justify-center items-center h-[calc(100vh-80px)] gap-10 text-primary">
       <div className="max-w-3xl w-full">
-        <h1 className="mb-2">Delivery Information</h1>
-        <div className="h-[60vh] border border-gray-300 rounded-md p-10 overflow-auto">
+        <h1 className="mb-2">Add Book Information</h1>
+        <form
+          className="h-[60vh] border border-gray-300 rounded-md p-10 overflow-auto"
+          onSubmit={handleSubmit}
+        >
           <div className="flex gap-5">
             <div className="w-full space-y-5">
               <div>
-                <Label htmlFor="name">Name</Label>
-                <Input type="text" id="name" className="mt-2" />
+                <Label htmlFor="name">Book Name</Label>
+                <Input
+                  type="text"
+                  id="name"
+                  className="mt-2"
+                  onChange={handleChange}
+                />
               </div>
               <div>
-                <Label htmlFor="name">Email</Label>
-                <Input type="text" id="name" className="mt-2" />
+                <Label htmlFor="author">Book Autor</Label>
+                <Input
+                  type="text"
+                  id="author"
+                  className="mt-2"
+                  onChange={handleChange}
+                />
               </div>
             </div>
             <div className="w-full space-y-5">
               <div>
-                <Label htmlFor="name">Phone</Label>
-                <Input type="text" id="name" className="mt-2" />
+                <Label htmlFor="name">Genre</Label>
+                <Input
+                  type="text"
+                  id="genre"
+                  className="mt-2"
+                  onChange={handleChange}
+                />
               </div>
               <div>
-                <Label htmlFor="name">City</Label>
-                <Input type="text" id="name" className="mt-2" />
+                <Label htmlFor="name">Publication Date</Label>
+                <Input
+                  type="text"
+                  id="publicationDate"
+                  className="mt-2"
+                  onChange={handleChange}
+                />
               </div>
             </div>
           </div>
           <div className="mt-5">
-            <Label htmlFor="name">Address</Label>
-            <Textarea id="name" className="mt-2" />
+            <Label htmlFor="name">Images URL</Label>
+            <Textarea id="image" className="mt-2" onChange={handleChange} />
           </div>
-          <div className="flex items-center gap-2 mt-5">
-            <Label className="text-lg">Scheduled Delivery</Label>
-            <Switch onClick={() => setScheduled(!scheduled)} />
+          <div className="flex justify-center items-center mt-3">
+            <Button type="submit">Add Book</Button>
           </div>
-          <div className="flex gap-5 mt-5">
-            <div className="w-full">
-              <Label htmlFor="note">Note</Label>
-              <Input
-                disabled={!scheduled}
-                type="text"
-                id="note"
-                className="mt-3"
-              />
-            </div>
-            <div className="w-full flex flex-col mt-2">
-              <Label className="mb-3" htmlFor="name">
-                Date
-              </Label>
-              <DatePickerWithPresets disabled={!scheduled} />
-            </div>
-          </div>
-          <div className="mt-3">
-            <Label className="text-lg">Payment method</Label>
-            <div className="flex gap-5 mt-5">
-              <RadioGroup defaultValue="comfortable" className="flex">
-                <div className="flex items-center space-x-2">
-                  <RadioGroupItem
-                    value="online"
-                    id="r1"
-                    className="border border-gray-400"
-                  />
-                  <Label htmlFor="r1">Online payment</Label>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <RadioGroupItem
-                    value="cash"
-                    id="r2"
-                    className="border border-gray-400"
-                  />
-                  <Label htmlFor="r2">Cash on delivery</Label>
-                </div>
-              </RadioGroup>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="max-w-lg w-full">
-        <h1 className="mb-2">Order Summery</h1>
-        <div className="border border-gray-300 rounded-md h-[60vh] p-10 flex flex-col">
-          <div className="flex-grow  mb-2 space-y-2 overflow-auto">
-            {products.map((product) => (
-              <div className="flex justify-between items-center bg-gray-100 p-1 rounded-lg">
-                <div className="flex items-center">
-                  <img
-                    src={product.image}
-                    className="h-[82px] rounded-md mr-2"
-                    alt=""
-                  />
-                  <div>
-                    <h1 className="text-lg mb-2">{product.name}</h1>
-                    {/* <p>Price: {product.price}</p> */}
-                  </div>
-                </div>
-                <div>
-                  {/* <h1 className="text-4xl mr-5">{product.quantity}</h1> */}
-                </div>
-              </div>
-            ))}
-          </div>
-          <div className="space-y-2">
-            <div className="flex justify-between text-lg">
-              <p>Subtotal</p>
-              <p>77.90$</p>
-            </div>
-            <div className="flex justify-between text-lg">
-              <p>Delivery</p>
-              <p>4.5$</p>
-            </div>
-            <div className="flex justify-between text-xl font-bold">
-              <p>Total</p>
-              <p>81.95$</p>
-            </div>
-            <Button className="w-full">Checkout</Button>
-          </div>
-        </div>
+        </form>
       </div>
     </div>
   );
