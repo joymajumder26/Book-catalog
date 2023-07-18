@@ -4,12 +4,14 @@ import Login from '@/pages/Login';
 import NotFound from '@/pages/NotFound';
 import Home from '@/pages/Home';
 // import Products from '@/pages/Books';
-import Checkout from '@/pages/Checkout';
+
 import Signup from '@/pages/Signup';
-import ProductDetails from '@/pages/BookDetails';
+
 
 import BookDetails from '@/pages/BookDetails';
 import Books from '@/pages/Books';
+import AddNewBook from '@/pages/AddNewBook';
+import PrivateRoute from './PrivateRoute';
 
 const routes = createBrowserRouter([
   {
@@ -30,7 +32,12 @@ const routes = createBrowserRouter([
       },
       {
         path: '/addnewbook',
-        element: <Checkout />,
+        element:(
+          <PrivateRoute>
+           
+          <AddNewBook />
+        </PrivateRoute>
+        ),
       },
     ],
   },

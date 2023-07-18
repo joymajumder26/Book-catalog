@@ -11,6 +11,7 @@ import { FcGoogle } from 'react-icons/fc';
 
 import { useAppDispatch } from '@/redux/hooks';
 import { createUser } from '@/redux/feature/user/userSlice';
+import { toast } from './ui/use-toast';
 
 type UserAuthFormProps = React.HTMLAttributes<HTMLDivElement>;
 
@@ -31,6 +32,9 @@ export function SignupForm({ className, ...props }: UserAuthFormProps) {
   const onSubmit = (data: SignupFormInputs) => {
     console.log(data);
     dispatch(createUser({email:data.email,password:data.password}))
+    toast({
+      description: 'Registration Complete',
+    });
   };
 
   return (

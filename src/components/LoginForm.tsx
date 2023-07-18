@@ -14,6 +14,7 @@ import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useAppSelector, useAppDispatch } from '@/redux/hooks';
 import { loginUser } from '@/redux/feature/user/userSlice';
+import { toast } from './ui/use-toast';
 
 type UserAuthFormProps = React.HTMLAttributes<HTMLDivElement>;
 
@@ -35,6 +36,9 @@ export function LoginForm({ className, ...props }: UserAuthFormProps) {
   const onSubmit = (data: LoginFormInputs) => {
     console.log(data);
     dispatch(loginUser({ email: data.email, password: data.password }));
+    toast({
+      description: 'Login Complete',
+    });
   };
   useEffect(() => {
     if (user.email && !isLoading) {

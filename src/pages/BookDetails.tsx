@@ -1,26 +1,45 @@
 import ProductReview from '@/components/BookReview';
 import { Button } from '@/components/ui/button';
-import { useSingleBookQuery } from '@/redux/feature/books/bookApi';
+import { useDeletePostMutation, useSingleBookQuery } from '@/redux/feature/books/bookApi';
+import { useEffect } from 'react';
 
 
-import { useParams } from 'react-router-dom';
+
+import { useNavigate, useParams } from 'react-router-dom';
 
 
 export default function BookDetails() {
   
+  const navigate = useNavigate();
 
-  //! Temporary code, should be replaced with redux
+  //Temporary code, should be replaced with redux
  
   const { id } = useParams();
 
-  const {data:book,isLoading,error} = useSingleBookQuery(id);
-  console.log(book);
+  const {data:book,isLoading,error,isSuccess} = useSingleBookQuery(id);
 
-  //! Temporary code ends here
+
+  const [deletePost,response] = useDeletePostMutation()
+  console.log('response',response);
+  // console.log(book);
+  // const dispatch = useAppDispatch()
+  // const onSubmit=(id: any)=>{
+  //   console.log('_____________________',id);
+   
+  //   dispatch(deletePost(id))
+  
+  // }
+
+  useEffect(() => {
+    if (response.isSuccess) {
+      navigate('/books');
+    }
+  }, [response]);
+
 
   return (
     <>
-      <div className="flex max-w-7xl mx-auto items-center border-b border-gray-300">
+      <div className="flex max-w-7xl mx-auto items-center border-b border-gray-300" key={id}>
         <div className="w-[50%]">
           <img src={book?.image} alt="" />
         </div>
@@ -30,7 +49,7 @@ export default function BookDetails() {
           <p className="text-xl">Genre: {book?.genre}</p>
           <p className="text-xl">Publication Date: {book?.publicationDate}</p>
          
-          <Button>Remove Book</Button>
+          <Button onClick={() => deletePost(book._id)}>Remove Book</Button>
         </div>
       </div>
       <ProductReview id={id!} />

@@ -9,14 +9,17 @@ import {
   DropdownMenuTrigger,
   DropdownMenuContent,
 } from '../components/ui/dropdown-menu';
-import { HiOutlineSearch } from 'react-icons/hi';
+
 
 import logo from '../assets/images/book-logo.png';
-import Signup from '../pages/Signup';
+
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { signOut } from 'firebase/auth';
 import { auth } from '@/lib/firebase';
 import { setUser } from '@/redux/feature/user/userSlice';
+
+
+
 
 export default function Navbar() {
 
@@ -28,6 +31,9 @@ export default function Navbar() {
       dispatch(setUser(null))
     })
   }
+
+
+
   return (
     <nav className="w-full h-16 fixed top backdrop-blur-lg z-10">
       <div className="h-full w-full bg-white/60">
@@ -40,6 +46,13 @@ export default function Navbar() {
           </div>
           <div>
             <ul className="flex items-center">
+         {/* <li>   <input
+        type="text"
+        value={searchQuery}
+        onChange={handleChange}
+        placeholder="Search items"
+      /></li> */}
+      {/* <button onClick={handleSearch}>Search</button> */}
               <li>
                 <Button variant="link" asChild>
                   <Link to="/">Home</Link>

@@ -14,7 +14,7 @@ import { IBook } from '@/types/globalTypes';
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-export default function Checkout() {
+export default function AddNewBook() {
   const [inputValue, setInputValue] = useState<{
    
     name: string;
@@ -83,6 +83,7 @@ export default function Checkout() {
       navigate('/');
     }
   }, [isSuccess]);
+  
 
   return (
     <div className="flex justify-center items-center h-[calc(100vh-80px)] gap-10 text-primary">

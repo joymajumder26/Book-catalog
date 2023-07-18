@@ -3,7 +3,7 @@ import { toast } from './ui/use-toast';
 import { Button } from './ui/button';
 import { Link } from 'react-router-dom';
 import { useAppDispatch } from '@/redux/hooks';
-import { removeFromBooks} from '@/redux/feature/books/bookSlice';
+// import { removeFromCart } from '@/redux/feature/books/bookSlice';
 
 interface IProps {
   book: IBook;
@@ -24,9 +24,7 @@ export default function BookCard({ book }: IProps) {
         <p>Genre: {book.genre}</p>
 
         <p className="text-sm">Pulication Date: {book.publicationDate}</p>
-        <Button variant="default" onClick={() => dispatch(removeFromBooks(book))}>
-          Remove
-        </Button>
+        
       </div>
     </div>
   );

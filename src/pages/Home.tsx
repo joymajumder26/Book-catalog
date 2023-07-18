@@ -1,20 +1,17 @@
-import { Button } from '@/components/ui/button';
-import banner from '@/assets/images/book-banner (1).jpg';
-import hero from '@/assets/images/hero.png';
-import { Link } from 'react-router-dom';
-import Footer from '@/layouts/Footer';
-import { useEffect, useState } from 'react';
 
-import { useToast } from '@/components/ui/use-toast';
-import ProductCard from '@/components/BookCard';
+import Footer from '@/layouts/Footer';
 import { IBook } from '@/types/globalTypes';
 import { useGetBooksQuery } from '@/redux/feature/books/bookApi';
 import BookCard from '@/components/BookCard';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { searchItems } from '@/redux/feature/books/bookSlice';
+
 
 export default function Home() {
   const {data,isLoading} =useGetBooksQuery(undefined);
   console.log(isLoading);
-
+ 
 
   return (
     <>
