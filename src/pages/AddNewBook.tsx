@@ -16,7 +16,6 @@ import { useNavigate } from 'react-router-dom';
 
 export default function AddNewBook() {
   const [inputValue, setInputValue] = useState<{
-   
     name: string;
     image: string;
     author: string;
@@ -24,7 +23,6 @@ export default function AddNewBook() {
     genre: string;
     publicationDate: string;
   }>({
-    
     name: '',
     image: '',
     author: '',
@@ -36,6 +34,7 @@ export default function AddNewBook() {
     refetchOnMountOrArgChange: true,
     pollingInterval: 30000,
   });
+  console.log(data);
   const [postAddBook, { isLoading, isError, isSuccess }] =
     usePostAddBookMutation();
   const navigate = useNavigate();
@@ -83,7 +82,6 @@ export default function AddNewBook() {
       navigate('/');
     }
   }, [isSuccess]);
-  
 
   return (
     <div className="flex justify-center items-center h-[calc(100vh-80px)] gap-10 text-primary">

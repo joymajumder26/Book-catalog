@@ -10,49 +10,56 @@ import {
   DropdownMenuContent,
 } from '../components/ui/dropdown-menu';
 
-
 import logo from '../assets/images/book-logo.png';
 
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { signOut } from 'firebase/auth';
 import { auth } from '@/lib/firebase';
 import { setUser } from '@/redux/feature/user/userSlice';
-
-
-
+import { useState } from 'react';
+import { useGetBooksQuery } from '@/redux/feature/books/bookApi';
+import { IBook } from '@/types/globalTypes';
 
 export default function Navbar() {
+  const { user } = useAppSelector((state) => state.user);
+  const [searchQuery, setSearchQuery] = useState('');
+ 
+  const { data: books, isLoading, isError } = useGetBooksQuery(undefined);
+  console.log(books);
+  
 
-  const {user} = useAppSelector((state)=>state.user)
-  const dispatch = useAppDispatch()
-  const handleLogout = () =>{
+  const handleSearch = (e: any) => {
+    setSearchQuery(e.target.value);
+  };
+
+ 
+ 
+
+  const dispatch = useAppDispatch();
+  const handleLogout = () => {
     console.log('LogOut');
     signOut(auth).then(() => {
-      dispatch(setUser(null))
-    })
-  }
-
-
+      dispatch(setUser(null));
+    });
+  };
 
   return (
     <nav className="w-full h-16 fixed top backdrop-blur-lg z-10">
       <div className="h-full w-full bg-white/60">
         <div className="flex items-center justify-between w-full md:max-w-7xl h-full mx-auto ">
-          <div className='flex items-center justify-between'>
-            <Link to='/'><img className="h-8" src={logo} alt="log" />
+          <div className="flex items-center justify-between">
+            <Link to="/">
+              <img className="h-8" src={logo} alt="log" />
             </Link>
             <h3>Book Catalog</h3>
-            
           </div>
           <div>
             <ul className="flex items-center">
-         {/* <li>   <input
-        type="text"
-        value={searchQuery}
-        onChange={handleChange}
-        placeholder="Search items"
-      /></li> */}
-      {/* <button onClick={handleSearch}>Search</button> */}
+              <li>
+              <Button variant="link" asChild>
+                  <Link to="/search">Search and Filter</Link>
+                </Button>
+              </li>
               <li>
                 <Button variant="link" asChild>
                   <Link to="/">Home</Link>
@@ -68,7 +75,7 @@ export default function Navbar() {
                   <Link to="/addnewbook">Add New Book</Link>
                 </Button>
               </li>
-              
+
               <li className="ml-5">
                 <DropdownMenu>
                   <DropdownMenuTrigger className="outline-none">
@@ -83,28 +90,29 @@ export default function Navbar() {
                     <DropdownMenuItem className="cursor-pointer">
                       Profile
                     </DropdownMenuItem>
-                   { 
-                   !user.email &&
-                    <> <Link to='/login'>
-                    <DropdownMenuItem className="cursor-pointer">
-                      Login
-                    </DropdownMenuItem>
-                    </Link>
-                    <Link to='/signup'>
-                    <DropdownMenuItem className="cursor-pointer">
-                      Sign Up
-                    </DropdownMenuItem>
-                    </Link>
-                    </>
-                    }
-                    {
-                    user.email &&
-                    <DropdownMenuItem 
-                    onClick={handleLogout}
-                     className="cursor-pointer">
-                    Logout
-                  </DropdownMenuItem> }
-                   
+                    {!user.email && (
+                      <>
+                        {' '}
+                        <Link to="/login">
+                          <DropdownMenuItem className="cursor-pointer">
+                            Login
+                          </DropdownMenuItem>
+                        </Link>
+                        <Link to="/signup">
+                          <DropdownMenuItem className="cursor-pointer">
+                            Sign Up
+                          </DropdownMenuItem>
+                        </Link>
+                      </>
+                    )}
+                    {user.email && (
+                      <DropdownMenuItem
+                        onClick={handleLogout}
+                        className="cursor-pointer"
+                      >
+                        Logout
+                      </DropdownMenuItem>
+                    )}
                   </DropdownMenuContent>
                 </DropdownMenu>
               </li>

@@ -11,18 +11,19 @@ const initialState = {
   books: [],
   loading: false,
   error: null,
+  searchData : []
 };
-export const deleteBook = createAsyncThunk<{ id: string }, { id: string, data: any }>(
-  'book/deleteBook',
-  async ({ id, data }) => {
-    try {
-      await axios.delete(`/book/${id}`, { data });
-      return { id };
-    } catch (error) {
-      throw new Error('Failed to delete book');
-    }
-  }
-);
+// export const deleteBook = createAsyncThunk<{ id: string }, { id: string, data: any }>(
+//   'book/deleteBook',
+//   async ({ id, data }) => {
+//     try {
+//       await axios.delete(`/book/${id}`, { data });
+//       return { id };
+//     } catch (error) {
+//       throw new Error('Failed to delete book');
+//     }
+//   }
+// );
 
 const bookSlice = createSlice({
   name: 'book',
@@ -37,19 +38,19 @@ const bookSlice = createSlice({
 
   extraReducers: (builder) => {
     builder
-    .addCase(deleteBook.pending, (state) => {
-      state.loading = true;
-      state.error = null;
-    })
-    .addCase(deleteBook.fulfilled, (state, action) => {
-      state.loading = false;
-      const { id } = action.payload;
-      state.books = state.books.filter((book:any) => book._id !== id);
-    })
-    .addCase(deleteBook.rejected, (state, action) => {
-      state.loading = false;
-      state.error = action.error.message;
-    });
+    // .addCase(deleteBook.pending, (state) => {
+    //   state.loading = true;
+    //   state.error = null;
+    // })
+    // .addCase(deleteBook.fulfilled, (state, action) => {
+    //   state.loading = false;
+    //   const { id } = action.payload;
+    //   state.books = state.books.filter((book:any) => book._id !== id);
+    // })
+    // .addCase(deleteBook.rejected, (state, action) => {
+    //   state.loading = false;
+    //   state.error = action.error.message;
+    // });
   },
 });
 export const {deleteUser} = bookSlice.actions;

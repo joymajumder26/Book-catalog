@@ -1,6 +1,7 @@
 import ProductReview from '@/components/BookReview';
 import { Button } from '@/components/ui/button';
-import { useDeletePostMutation, useSingleBookQuery } from '@/redux/feature/books/bookApi';
+import { toast } from '@/components/ui/use-toast';
+import { useDeletePostMutation, useSingleBookQuery, useUpdateBookMutation } from '@/redux/feature/books/bookApi';
 import { useEffect } from 'react';
 
 
@@ -19,7 +20,8 @@ export default function BookDetails() {
   const {data:book,isLoading,error,isSuccess} = useSingleBookQuery(id);
 
 
-  const [deletePost,response] = useDeletePostMutation()
+  const [deletePost,response] = useDeletePostMutation();
+  const [updatedPost] = useUpdateBookMutation()
   console.log('response',response);
   // console.log(book);
   // const dispatch = useAppDispatch()
@@ -31,10 +33,16 @@ export default function BookDetails() {
   // }
 
   useEffect(() => {
+   
     if (response.isSuccess) {
+      (window.confirm("Are you sure to delete Book"))
+      toast({
+        description: 'Delete Book Successfully',
+      });
       navigate('/books');
     }
   }, [response]);
+ 
 
 
   return (
@@ -49,6 +57,7 @@ export default function BookDetails() {
           <p className="text-xl">Genre: {book?.genre}</p>
           <p className="text-xl">Publication Date: {book?.publicationDate}</p>
          
+          <Button className='mr-5' onClick={() => updatedPost(book._id)}>Edit Book</Button>
           <Button onClick={() => deletePost(book._id)}>Remove Book</Button>
         </div>
       </div>

@@ -25,10 +25,16 @@ const bookApi = api.injectEndpoints({
         method: 'DELETE',
       }),
       invalidatesTags: ['delete-book'],
-      onSuccess: async (id, { dispatch }) => {
-        // Automatically refetch the book list after successful delete
-        await dispatch(bookApi.endpoints.getBooks.initiate());
-      },
+     
+     
+    }),
+    updateBook: builder.mutation({
+      query: ({ id, data }) => ({
+        url: `/book/${id}`, // Updated API URL for updating a book
+        method: 'PUT', // Use the appropriate method for updating a book (PUT, PATCH, etc.)
+        body: data,
+      }),
+      invalidatesTags: ['update-book'], // Optional: Invalidates cache tags for the "update-book" scenario
     }),
    
     postComment: builder.mutation({
@@ -51,5 +57,6 @@ export const {
   usePostCommentMutation,
   useSingleBookQuery,
   usePostAddBookMutation,
-  useDeletePostMutation
+  useDeletePostMutation,
+  useUpdateBookMutation
 } = bookApi;
