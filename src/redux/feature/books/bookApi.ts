@@ -30,7 +30,7 @@ const bookApi = api.injectEndpoints({
     }),
     updateBook: builder.mutation({
       query: ({ id, data }) => ({
-        url: `/book/${id}`, // Updated API URL for updating a book
+        url: `/book/edit/${id}`, // Updated API URL for updating a book
         method: 'PUT', // Use the appropriate method for updating a book (PUT, PATCH, etc.)
         body: data,
       }),

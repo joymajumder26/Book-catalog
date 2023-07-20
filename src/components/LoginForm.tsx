@@ -21,6 +21,7 @@ type UserAuthFormProps = React.HTMLAttributes<HTMLDivElement>;
 interface LoginFormInputs {
   email: string;
   password: string;
+  isError:false
 }
 
 export function LoginForm({ className, ...props }: UserAuthFormProps) {
@@ -29,13 +30,17 @@ export function LoginForm({ className, ...props }: UserAuthFormProps) {
     handleSubmit,
     formState: { errors },
   } = useForm<LoginFormInputs>();
-  const { user, isLoading } = useAppSelector((state) => state.user);
+  const { user, isLoading,isError } = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const onSubmit = (data: LoginFormInputs) => {
     console.log(data);
     dispatch(loginUser({ email: data.email, password: data.password }));
+    if(isError===false){
+      alert("error password");
+    }
+   
     toast({
       description: 'Login Complete',
     });

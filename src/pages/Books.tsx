@@ -8,7 +8,10 @@ import { IBook } from '@/types/globalTypes';
 
 
 export default function Books() {
-  const {data,isLoading} =useGetBooksQuery(undefined);
+  const { data, isLoading, error } = useGetBooksQuery({
+    refetchOnMountOrArgChange: true,
+    pollingInterval: 3000,
+  });
   
 
 

@@ -31,11 +31,19 @@ export function SignupForm({ className, ...props }: UserAuthFormProps) {
 
   const onSubmit = (data: SignupFormInputs) => {
     console.log(data);
-    dispatch(createUser({email:data.email,password:data.password}))
+    if (data.password.length > 5) {
+      window.alert("Registration Complete.. Please Login")
+    
+    dispatch(createUser({ email: data.email, password: data.password }));
+    
     toast({
       description: 'Registration Complete',
     });
-  };
+  }
+  else{
+    alert('password Length must be 7');
+  }
+};
 
   return (
     <div className={cn('grid gap-6', className)} {...props}>

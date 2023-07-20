@@ -6,7 +6,7 @@ import { useEffect } from 'react';
 
 
 
-import { useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 
 
 export default function BookDetails() {
@@ -56,8 +56,13 @@ export default function BookDetails() {
           <p className="text-xl">Author: {book?.author}</p>
           <p className="text-xl">Genre: {book?.genre}</p>
           <p className="text-xl">Publication Date: {book?.publicationDate}</p>
-         
-          <Button className='mr-5' onClick={() => updatedPost(book._id)}>Edit Book</Button>
+         <Link
+         to={`/book-details/edit/${id}`}
+         >
+          <Button  className='mr-5' 
+          // onClick={() => updatedPost(book._id)}
+          >Edit Book</Button>
+          </Link>
           <Button onClick={() => deletePost(book._id)}>Remove Book</Button>
         </div>
       </div>

@@ -49,6 +49,15 @@ const routes = createBrowserRouter([
         </PrivateRoute>
         ),
       },
+      {
+        path: '/book-details/edit/:id',
+        element:(
+          <PrivateRoute>
+           
+          <AddNewBook />
+        </PrivateRoute>
+        ),
+      },
     ],
   },
   {
