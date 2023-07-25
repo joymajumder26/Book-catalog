@@ -2,8 +2,7 @@
 
 import { useGetBooksQuery } from '@/redux/feature/books/bookApi';
 import { IBook } from '@/types/globalTypes';
-import { Link } from 'lucide-react';
-import React, { useState } from 'react';
+import  { SetStateAction, useState } from 'react';
 import BookCard from './BookCard';
 
 
@@ -13,14 +12,14 @@ const BookList = () => {
   const [yearFilter, setYearFilter] = useState('');
   const { data: books, isLoading, isError } = useGetBooksQuery(undefined);
 
- const handleSearch = (e) => {
+ const handleSearch = (e: { target: { value: SetStateAction<string>; }; }) => {
     setSearchQuery(e.target.value);
   };
 
-  const handleGenreFilter = (e) => {
+  const handleGenreFilter = (e: { target: { value: SetStateAction<string>; }; }) => {
     setGenreFilter(e.target.value);
   };
-  const handleYearFilter = (e) => {
+  const handleYearFilter = (e: { target: { value: SetStateAction<string>; }; }) => {
     setYearFilter(e.target.value);
   };
 

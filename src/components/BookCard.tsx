@@ -1,9 +1,5 @@
 import { IBook } from '@/types/globalTypes';
-import { toast } from './ui/use-toast';
-import { Button } from './ui/button';
 import { Link } from 'react-router-dom';
-import { useAppDispatch } from '@/redux/hooks';
-// import { removeFromCart } from '@/redux/feature/books/bookSlice';
 
 interface IProps {
   book: IBook;
@@ -11,7 +7,6 @@ interface IProps {
 
 export default function BookCard({ book }: IProps) {
   
-  const dispatch = useAppDispatch();
  
   return (
     <div>

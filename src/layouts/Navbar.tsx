@@ -16,21 +16,16 @@ import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { signOut } from 'firebase/auth';
 import { auth } from '@/lib/firebase';
 import { setUser } from '@/redux/feature/user/userSlice';
-import { useState } from 'react';
 import { useGetBooksQuery } from '@/redux/feature/books/bookApi';
-import { IBook } from '@/types/globalTypes';
 
 export default function Navbar() {
   const { user } = useAppSelector((state) => state.user);
-  const [searchQuery, setSearchQuery] = useState('');
  
-  const { data: books, isLoading, isError } = useGetBooksQuery(undefined);
+  const { data: books } = useGetBooksQuery(undefined);
   console.log(books);
   
 
-  const handleSearch = (e: any) => {
-    setSearchQuery(e.target.value);
-  };
+ 
 
  
  
